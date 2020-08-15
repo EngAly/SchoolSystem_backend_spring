@@ -21,4 +21,6 @@ public interface StudentRepo extends JpaRepository<Student, Long> {
 
 	Page<Student> findByAgeGreaterThanEqualAndAgeLessThanEqual(byte start, byte end, Pageable pageable);
 
+	Page<Student> findByLevel_NameContainingIgnoreCase(String level, Pageable pageable);
+
 }

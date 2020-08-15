@@ -107,6 +107,16 @@ public class StudentService implements ISMethods<Student>, ISMethods1<Student> {
 		}
 	}
 
+	public Page<Student> getByLevel(String level, PageableFields fields) {
+		if (fields.getDirection().equalsIgnoreCase("desc")) {
+			return repo.findByLevel_NameContainingIgnoreCase(level,
+					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).descending()));
+		} else {
+			return repo.findByLevel_NameContainingIgnoreCase(level,
+					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).ascending()));
+		}
+	}
+
 	@Override
 	public long count() {
 		return repo.count();

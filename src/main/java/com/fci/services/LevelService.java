@@ -1,9 +1,5 @@
 package com.fci.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.UnaryOperator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,10 +13,10 @@ import com.fci.interfaces.ISMethods;
 import com.fci.models.Level;
 import com.fci.models.PageableFields;
 import com.fci.models.Response;
-import com.fci.models.Subject;
 
 @Service
-public class LevelService implements ISMethods<Level>, UnaryOperator<List<Subject>> {
+//public class LevelService implements ISMethods<Level>, UnaryOperator<List<Subject>> {
+public class LevelService implements ISMethods<Level> {
 
 	@Autowired
 	LevelRepo repo;
@@ -29,8 +25,6 @@ public class LevelService implements ISMethods<Level>, UnaryOperator<List<Subjec
 	SubjectService service;
 
 	private final String entityType = "Season ";
-
-	ArrayList<Subject> withIds;
 
 	@Override
 	public ResponseEntity<Response> save(Level entity) {
@@ -105,20 +99,4 @@ public class LevelService implements ISMethods<Level>, UnaryOperator<List<Subjec
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(new Response("All " + entityType.trim() + "s" + " Are Removed"));
 	}
-
-	/**
-	 * use method in functional interface to be as bridge between entities not have
-	 * id and entities with id<br>
-	 * input: list of entities that not have any id for its records<br>
-	 * return: list of entities that not have any id for its records<br>
-	 * process: take entity with no id and handle record by name with its id
-	 */
-	@Override
-	public List<Subject> apply(List<Subject> withoutIds) {
-//		withIds = new ArrayList<>();
-//		withoutIds.forEach(item -> withIds.add(service.getByName(item.getName()).get(0)));
-//		return withIds;
-		return null;
-	}
-
 }

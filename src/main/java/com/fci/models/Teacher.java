@@ -29,7 +29,7 @@ public class Teacher {
 	private String notes;
 
 	@Column(length = 10)
-	private String gender;
+	private String gender,maritalStatus;
 
 	private Date doh, dob, graduateDate; // date of hire dob=date of birth
 
@@ -123,6 +123,15 @@ public class Teacher {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+
+    public String getMaritalStatus() {
+		return maritalStatus;
+	}
+
+	public void setMaritalStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
 	}
 
 	public Date getDoh() {
