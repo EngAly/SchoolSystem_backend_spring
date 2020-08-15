@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.fci.dao.GuardianRepo;
 import com.fci.dao.StudentRepo;
-import com.fci.interfaces.ISMethods;
+import com.fci.interfaces.BusinessAbstracts;
 import com.fci.interfaces.ISMethods1;
 import com.fci.models.Grade;
 import com.fci.models.PageableFields;
@@ -20,7 +20,7 @@ import com.fci.models.Response;
 import com.fci.models.Student;
 
 @Service
-public class StudentService implements ISMethods<Student>, ISMethods1<Student> {
+public class StudentService implements BusinessAbstracts<Student>, ISMethods1<Student> {
 
 	@Autowired
 	private StudentRepo repo;

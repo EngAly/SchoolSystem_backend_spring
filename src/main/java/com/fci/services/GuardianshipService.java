@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fci.dao.GuardianshipRepo;
-import com.fci.interfaces.ISMethods;
+import com.fci.interfaces.BusinessAbstracts;
 import com.fci.models.Guardianship;
 import com.fci.models.PageableFields;
 import com.fci.models.Response;
 
 @Service
-public class GuardianshipService implements ISMethods<Guardianship> {
+public class GuardianshipService implements BusinessAbstracts<Guardianship> {
 
 	@Autowired
 	GuardianshipRepo repo;

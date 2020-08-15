@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import com.fci.models.PageableFields;
 import com.fci.models.Response;
 
-public interface ISMethods<T> { // interface service methods1
+public interface BusinessAbstracts<T> { // interface service methods1
 
 	public ResponseEntity<Response> save(T entity);
 

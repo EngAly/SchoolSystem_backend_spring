@@ -9,14 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fci.dao.WorkerRepo;
-import com.fci.interfaces.ISMethods;
+import com.fci.interfaces.BusinessAbstracts;
 import com.fci.interfaces.ISMethods1;
 import com.fci.models.PageableFields;
 import com.fci.models.Response;
 import com.fci.models.Worker;
 
 @Service
-public class WorkerService implements ISMethods<Worker>, ISMethods1<Worker> {
+public class WorkerService implements BusinessAbstracts<Worker>, ISMethods1<Worker> {
 
 	@Autowired
 	WorkerRepo repo;

@@ -9,14 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fci.dao.TeacherRepo;
-import com.fci.interfaces.ISMethods;
+import com.fci.interfaces.BusinessAbstracts;
 import com.fci.interfaces.ISMethods1;
 import com.fci.models.PageableFields;
 import com.fci.models.Response;
 import com.fci.models.Teacher;
 
 @Service
-public class TeacherService implements ISMethods<Teacher>, ISMethods1<Teacher> {
+public class TeacherService implements BusinessAbstracts<Teacher>, ISMethods1<Teacher> {
 
 	@Autowired
 	TeacherRepo repo;
@@ -47,7 +47,7 @@ public class TeacherService implements ISMethods<Teacher>, ISMethods1<Teacher> {
 	public Teacher getById(long id) {
 		return repo.findById(id).get();
 	}
-	
+
 	@Override
 	public Page<Teacher> getByName(String name, PageableFields fields) {
 		if (fields.getDirection().equalsIgnoreCase("desc")) {
@@ -78,6 +78,16 @@ public class TeacherService implements ISMethods<Teacher>, ISMethods1<Teacher> {
 					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).descending()));
 		} else {
 			return repo.findByAgeGreaterThanEqualAndAgeLessThanEqual(start, end,
+					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).ascending()));
+		}
+	}
+
+	public Page<Teacher> getByLevel(String level, PageableFields fields) {
+		if (fields.getDirection().equalsIgnoreCase("desc")) {
+			return repo.findByLevels_NameContainingIgnoreCase(level,
+					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).descending()));
+		} else {
+			return repo.findByLevels_NameContainingIgnoreCase(level,
 					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).ascending()));
 		}
 	}

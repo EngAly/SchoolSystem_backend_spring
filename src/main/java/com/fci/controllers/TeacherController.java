@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fci.dao.TeacherRepo;
-import com.fci.interfaces.ICMethods;
+import com.fci.interfaces.EndPointAbtracts;
 import com.fci.interfaces.ICMethods1;
 import com.fci.models.PageableFieldsBuilder;
 import com.fci.models.Response;
@@ -20,7 +23,7 @@ import com.fci.services.TeacherService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "teacher")
-public class TeacherController implements ICMethods<Teacher>, ICMethods1<Teacher> {
+public class TeacherController implements EndPointAbtracts<Teacher>, ICMethods1<Teacher> {
 
 	@Autowired
 	TeacherRepo r;
@@ -62,6 +65,14 @@ public class TeacherController implements ICMethods<Teacher>, ICMethods1<Teacher
 	@Override
 	public Page<Teacher> findByGender(String gender, int page, int pageSize, String sort, String direction) {
 		return service.getByGender(gender,
+				new PageableFieldsBuilder().direction(direction).sort(sort).pageSize(pageSize).page(page).build());
+	}
+
+	@GetMapping(value = "/byLevel/{level}")
+	public Page<Teacher> findByLevel(@PathVariable String level, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "8") int pageSize, @RequestParam(defaultValue = "id") String sort,
+			@RequestParam(defaultValue = "asc") String direction) {
+		return service.getByLevel(level,
 				new PageableFieldsBuilder().direction(direction).sort(sort).pageSize(pageSize).page(page).build());
 	}
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.fci.interfaces.ICMethods;
+import com.fci.interfaces.EndPointAbtracts;
 import com.fci.interfaces.ICMethods1;
 import com.fci.models.PageableFieldsBuilder;
 import com.fci.models.Response;
@@ -17,7 +17,7 @@ import com.fci.services.WorkerService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "worker")
-public class WorkerController implements ICMethods<Worker>, ICMethods1<Worker> {
+public class WorkerController implements EndPointAbtracts<Worker>, ICMethods1<Worker> {
 
 	@Autowired
 	WorkerService service;

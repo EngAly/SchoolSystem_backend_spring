@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fci.interfaces.ICMethods;
+import com.fci.interfaces.EndPointAbtracts;
 import com.fci.models.PageableFieldsBuilder;
 import com.fci.models.Register;
 import com.fci.models.Response;
@@ -16,7 +16,7 @@ import com.fci.services.RegisterService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "register")
-public class RegisterController implements ICMethods<Register> {
+public class RegisterController implements EndPointAbtracts<Register> {
 
 	@Autowired
 	RegisterService service;

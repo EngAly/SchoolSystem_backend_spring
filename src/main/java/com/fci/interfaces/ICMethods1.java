@@ -13,8 +13,8 @@ public interface ICMethods1<T> {
 			@RequestParam(defaultValue = "8") int pageSize, @RequestParam(defaultValue = "id") String sort,
 			@RequestParam(defaultValue = "asc") String direction);
 
-	@GetMapping("/byAge/{age}")
-	public Page<T> findByAge(byte start, byte end, @RequestParam(defaultValue = "0") int page,
+	@GetMapping("/byAge")
+	public Page<T> findByAge(@RequestParam byte start, @RequestParam byte end, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "8") int pageSize, @RequestParam(defaultValue = "age") String sort,
 			@RequestParam(defaultValue = "asc") String direction);
 

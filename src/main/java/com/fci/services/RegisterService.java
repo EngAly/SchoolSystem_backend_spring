@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fci.dao.RegisterRepo;
-import com.fci.interfaces.ISMethods;
+import com.fci.interfaces.BusinessAbstracts;
 import com.fci.models.PageableFields;
 import com.fci.models.Register;
 import com.fci.models.Response;
 
 @Service
-public class RegisterService implements ISMethods<Register> {
+public class RegisterService implements BusinessAbstracts<Register> {
 
 	@Autowired
 	RegisterRepo repo;

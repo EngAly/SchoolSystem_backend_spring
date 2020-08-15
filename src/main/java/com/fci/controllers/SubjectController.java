@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fci.interfaces.ICMethods;
+import com.fci.interfaces.EndPointAbtracts;
 import com.fci.models.PageableFieldsBuilder;
 import com.fci.models.Response;
 import com.fci.models.Subject;
@@ -16,7 +16,7 @@ import com.fci.services.SubjectService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "subject")
-public class SubjectController implements ICMethods<Subject> {
+public class SubjectController implements EndPointAbtracts<Subject> {
 
 	@Autowired
 	SubjectService service;

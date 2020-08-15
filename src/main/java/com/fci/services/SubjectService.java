@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fci.dao.SubjectRepo;
-import com.fci.interfaces.ISMethods;
+import com.fci.interfaces.BusinessAbstracts;
 import com.fci.models.PageableFields;
 import com.fci.models.Response;
 import com.fci.models.Subject;
 
 @Service
-public class SubjectService implements ISMethods<Subject> {
+public class SubjectService implements BusinessAbstracts<Subject> {
 
 	@Autowired
 	SubjectRepo repo;

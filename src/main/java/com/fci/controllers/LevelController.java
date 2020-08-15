@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fci.interfaces.ICMethods;
+import com.fci.interfaces.EndPointAbtracts;
 import com.fci.models.Level;
 import com.fci.models.PageableFieldsBuilder;
 import com.fci.models.Response;
@@ -16,7 +16,7 @@ import com.fci.services.LevelService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "level")
-public class LevelController implements ICMethods<Level> {
+public class LevelController implements EndPointAbtracts<Level> {
 
 	@Autowired
 	LevelService service;

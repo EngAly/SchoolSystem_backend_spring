@@ -9,14 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fci.dao.LevelRepo;
-import com.fci.interfaces.ISMethods;
+import com.fci.interfaces.BusinessAbstracts;
 import com.fci.models.Level;
 import com.fci.models.PageableFields;
 import com.fci.models.Response;
 
 @Service
 //public class LevelService implements ISMethods<Level>, UnaryOperator<List<Subject>> {
-public class LevelService implements ISMethods<Level> {
+public class LevelService implements BusinessAbstracts<Level> {
 
 	@Autowired
 	LevelRepo repo;

@@ -21,6 +21,8 @@ public interface TeacherRepo extends JpaRepository<Teacher, Long> {
 
 	Page<Teacher> findByAgeGreaterThanEqualAndAgeLessThanEqual(byte start, byte end, Pageable pageable);
 
+	Page<Teacher> findByLevels_NameContainingIgnoreCase(String name, Pageable pageable);
+	
 ////	@Query(value = "select id,  name, seasons.id from teacher", nativeQuery = true)
 //	@Query(value = "select id,  name, seasons from teacher", nativeQuery = true)
 //	List<TeacherData> findAllBy();

@@ -10,14 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fci.dao.GuardianRepo;
-import com.fci.interfaces.ISMethods;
+import com.fci.interfaces.BusinessAbstracts;
 import com.fci.interfaces.ISMethods1;
 import com.fci.models.Guardian;
 import com.fci.models.PageableFields;
 import com.fci.models.Response;
 
 @Service
-public class GuardianService implements ISMethods<Guardian>, ISMethods1<Guardian> {
+public class GuardianService implements BusinessAbstracts<Guardian>, ISMethods1<Guardian> {
 
 	@Autowired
 	private GuardianRepo repo;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fci.models.Response;
 
 @RequestMapping(path = "default")
-public interface ICMethods<T> { // Interface Controller Methods
+public interface EndPointAbtracts<T> { // Interface Controller Methods
 
 	@PostMapping("/add")
 	public ResponseEntity<Response> add(@RequestBody T entity);

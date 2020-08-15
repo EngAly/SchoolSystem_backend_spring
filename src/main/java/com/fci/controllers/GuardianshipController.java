@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.fci.interfaces.ICMethods;
+import com.fci.interfaces.EndPointAbtracts;
 import com.fci.models.Guardianship;
 import com.fci.models.PageableFieldsBuilder;
 import com.fci.models.Response;
@@ -16,7 +16,7 @@ import com.fci.services.GuardianshipService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "guardianship")
-public class GuardianshipController implements ICMethods<Guardianship> {
+public class GuardianshipController implements EndPointAbtracts<Guardianship> {
 
 	@Autowired
 	GuardianshipService service;

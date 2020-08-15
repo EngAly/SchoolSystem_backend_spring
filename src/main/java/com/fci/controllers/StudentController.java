@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fci.interfaces.ICMethods;
+import com.fci.interfaces.EndPointAbtracts;
 import com.fci.interfaces.ICMethods1;
 import com.fci.models.PageableFieldsBuilder;
 import com.fci.models.Response;
@@ -20,7 +20,7 @@ import com.fci.services.StudentService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "student")
-public class StudentController implements ICMethods<Student>, ICMethods1<Student> {
+public class StudentController implements EndPointAbtracts<Student>, ICMethods1<Student> {
 
 	@Autowired
 	StudentService service;
