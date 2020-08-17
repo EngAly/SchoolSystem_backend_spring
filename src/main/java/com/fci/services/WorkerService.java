@@ -1,5 +1,7 @@
 package com.fci.services;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +15,7 @@ import com.fci.interfaces.BusinessAbstracts;
 import com.fci.interfaces.ISMethods1;
 import com.fci.models.PageableFields;
 import com.fci.models.Response;
+import com.fci.models.Student;
 import com.fci.models.Worker;
 
 @Service
@@ -46,7 +49,7 @@ public class WorkerService implements BusinessAbstracts<Worker>, ISMethods1<Work
 	public Worker getById(long id) {
 		return repo.findById(id).get();
 	}
-	
+
 	@Override
 	public Page<Worker> getByGender(String gender, PageableFields fields) {
 		if (fields.getDirection().equalsIgnoreCase("desc")) {
@@ -66,6 +69,17 @@ public class WorkerService implements BusinessAbstracts<Worker>, ISMethods1<Work
 					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).descending()));
 		} else {
 			return repo.findByAgeGreaterThanEqualAndAgeLessThanEqual(start, end,
+					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).ascending()));
+		}
+	}
+
+	public Page<Worker> getByJoinDate(Date start, Date end, PageableFields fields) {
+		start = start.after(end) ? new Date(start.getTime() + end.getTime() - ((end = start).getTime())) : start;
+		if (fields.getDirection().equalsIgnoreCase("desc")) {
+			return repo.findByJoinDateGreaterThanEqualAndJoinDateLessThanEqual(start, end,
+					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).descending()));
+		} else {
+			return repo.findByJoinDateGreaterThanEqualAndJoinDateLessThanEqual(start, end,
 					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).ascending()));
 		}
 	}

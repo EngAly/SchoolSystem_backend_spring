@@ -1,7 +1,10 @@
 package com.fci.controllers;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,6 +67,15 @@ public class StudentController implements EndPointAbtracts<Student>, ICMethods1<
 			@RequestParam(defaultValue = "8") int pageSize, @RequestParam(defaultValue = "id") String sort,
 			@RequestParam(defaultValue = "asc") String direction) {
 		return service.getByLevel(level,
+				new PageableFieldsBuilder().direction(direction).sort(sort).pageSize(pageSize).page(page).build());
+	}
+
+	@GetMapping(value = "/byJoinDate")
+	public Page<Student> findByJoinDate(@DateTimeFormat(pattern = "dd-MM-yyyy") Date start,
+			@RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date end, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "8") int pageSize, @RequestParam(defaultValue = "id") String sort,
+			@RequestParam(defaultValue = "asc") String direction) {
+		return service.getByJoinDate(start, end,
 				new PageableFieldsBuilder().direction(direction).sort(sort).pageSize(pageSize).page(page).build());
 	}
 

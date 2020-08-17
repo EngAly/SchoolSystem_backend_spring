@@ -1,6 +1,7 @@
 package com.fci.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -113,6 +114,17 @@ public class StudentService implements BusinessAbstracts<Student>, ISMethods1<St
 					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).descending()));
 		} else {
 			return repo.findByLevel_NameContainingIgnoreCase(level,
+					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).ascending()));
+		}
+	}
+
+	public Page<Student> getByJoinDate(Date start, Date end, PageableFields fields) {
+		start = start.after(end) ? new Date(start.getTime() + end.getTime() - ((end = start).getTime())) : start;
+		if (fields.getDirection().equalsIgnoreCase("desc")) {
+			return repo.findByJoinDateGreaterThanEqualAndJoinDateLessThanEqual(start, end,
+					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).descending()));
+		} else {
+			return repo.findByJoinDateGreaterThanEqualAndJoinDateLessThanEqual(start, end,
 					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).ascending()));
 		}
 	}

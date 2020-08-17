@@ -1,5 +1,7 @@
 package com.fci.services;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +15,7 @@ import com.fci.interfaces.BusinessAbstracts;
 import com.fci.interfaces.ISMethods1;
 import com.fci.models.PageableFields;
 import com.fci.models.Response;
+import com.fci.models.Student;
 import com.fci.models.Teacher;
 
 @Service
@@ -88,6 +91,17 @@ public class TeacherService implements BusinessAbstracts<Teacher>, ISMethods1<Te
 					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).descending()));
 		} else {
 			return repo.findByLevels_NameContainingIgnoreCase(level,
+					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).ascending()));
+		}
+	}
+
+	public Page<Teacher> getByDateOfHire(Date start, Date end, PageableFields fields) {
+		start = start.after(end) ? new Date(start.getTime() + end.getTime() - ((end = start).getTime())) : start;
+		if (fields.getDirection().equalsIgnoreCase("desc")) {
+			return repo.findByDohGreaterThanEqualAndDohLessThanEqual(start, end,
+					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).descending()));
+		} else {
+			return repo.findByDohGreaterThanEqualAndDohLessThanEqual(start, end,
 					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).ascending()));
 		}
 	}

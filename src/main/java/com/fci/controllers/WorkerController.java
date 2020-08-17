@@ -1,16 +1,22 @@
 package com.fci.controllers;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.fci.interfaces.EndPointAbtracts;
 import com.fci.interfaces.ICMethods1;
 import com.fci.models.PageableFieldsBuilder;
 import com.fci.models.Response;
+import com.fci.models.Student;
 import com.fci.models.Worker;
 import com.fci.services.WorkerService;
 
@@ -56,6 +62,15 @@ public class WorkerController implements EndPointAbtracts<Worker>, ICMethods1<Wo
 				new PageableFieldsBuilder().direction(direction).sort(sort).pageSize(pageSize).page(page).build());
 	}
 
+	@GetMapping(value = "/byJoinDate")
+	public Page<Worker> findByJoinDate(@DateTimeFormat(pattern = "dd-MM-yyyy") Date start,
+			@RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date end, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "8") int pageSize, @RequestParam(defaultValue = "id") String sort,
+			@RequestParam(defaultValue = "asc") String direction) {
+		return service.getByJoinDate(start, end,
+				new PageableFieldsBuilder().direction(direction).sort(sort).pageSize(pageSize).page(page).build());
+	}
+	
 	@Override
 	public ResponseEntity<Response> deleteById(long id) {
 		return service.delete(id);
