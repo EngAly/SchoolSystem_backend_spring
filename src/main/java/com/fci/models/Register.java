@@ -4,7 +4,7 @@ import java.sql.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "register")
+@Table(name = "users")
 public class Register {
 
 	@Id
@@ -17,9 +17,10 @@ public class Register {
 	@Column(length = 10)
 	private String gender, role;
 
+	
 	private String password, phone, address;
 
-	private Date registerDate;
+	private Date joinDate;
 
 	public Register() {
 	}
@@ -72,12 +73,13 @@ public class Register {
 		this.address = address;
 	}
 
-	public Date getRegisterDate() {
-		return registerDate;
+	 
+	public Date getJoinDate() {
+		return joinDate;
 	}
 
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
 	}
 
 	public String getRole() {
@@ -93,7 +95,7 @@ public class Register {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Register [id=").append(id).append(", username=").append(username).append(", gender=")
 				.append(gender).append(", role=").append(role).append(", password=").append(password).append(", phone=")
-				.append(phone).append(", address=").append(address).append(", registerDate=").append(registerDate)
+				.append(phone).append(", address=").append(address).append(", registerDate=").append(joinDate)
 				.append("]");
 		return builder.toString();
 	}
