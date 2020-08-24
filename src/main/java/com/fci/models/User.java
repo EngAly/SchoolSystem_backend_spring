@@ -3,9 +3,10 @@ package com.fci.models;
 import java.sql.Date;
 import javax.persistence.*;
 
+ 
 @Entity
 @Table(name = "users")
-public class Register {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,12 +18,11 @@ public class Register {
 	@Column(length = 10)
 	private String gender, role;
 
-	
 	private String password, phone, address;
 
 	private Date joinDate;
 
-	public Register() {
+	public User() {
 	}
 
 	public Long getId() {
@@ -73,7 +73,6 @@ public class Register {
 		this.address = address;
 	}
 
-	 
 	public Date getJoinDate() {
 		return joinDate;
 	}
@@ -92,12 +91,8 @@ public class Register {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Register [id=").append(id).append(", username=").append(username).append(", gender=")
-				.append(gender).append(", role=").append(role).append(", password=").append(password).append(", phone=")
-				.append(phone).append(", address=").append(address).append(", registerDate=").append(joinDate)
-				.append("]");
-		return builder.toString();
+		return "User [id=" + id + ", username=" + username + ", gender=" + gender + ", role=" + role + ", password="
+				+ password + ", phone=" + phone + ", address=" + address + ", joinDate=" + joinDate + "]";
 	}
 
 }
