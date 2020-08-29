@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +45,13 @@ public class RegisterController implements EndPointAbtracts<User> {
 				new PageableFieldsBuilder().direction(direction).pageSize(pageSize).sort(sort).page(page).build());
 	}
 
+	@GetMapping("/details/{username}")
+	public User findDetailsByName(@PathVariable String username) {
+		return service.getDetailsByName(username);
+	}
+	
+	
+	
 	@Override
 	public ResponseEntity<Response> deleteById(long id) {
 		return service.delete(id);

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.fci.dao.RegisterRepo;
 import com.fci.interfaces.BusinessAbstracts;
+import com.fci.models.JwtRequest;
 import com.fci.models.PageableFields;
 import com.fci.models.User;
 import com.fci.models.Response;
@@ -63,6 +64,16 @@ public class RegisterService implements BusinessAbstracts<User>, UserDetailsServ
 			return repo.findByUsernameContainingIgnoreCase(name,
 					PageRequest.of(fields.getPage(), fields.getPageSize(), Sort.by(fields.getSort()).ascending()));
 		}
+	}
+
+	/**
+	 * get username details by username
+	 * 
+	 * @param username : username to get its data
+	 * @return: details for passed username
+	 */
+	public User getDetailsByName(String username) {
+		return repo.findByUsername(username);
 	}
 
 	@Override
@@ -115,8 +126,22 @@ public class RegisterService implements BusinessAbstracts<User>, UserDetailsServ
 			throw new UsernameNotFoundException(username + " Not Registered In School System: ");
 		}
 //		init roles with SimpleGrantedAuthority class and pass set of roles User Constructor
-		roles.add(new SimpleGrantedAuthority(user.getRole()));
+		roles.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), roles);
+	}
+
+	/**
+	 * test if credentials is valid or not
+	 * 
+	 * @param auth: username + password
+	 * @return
+	 */
+	public boolean validateAuth(JwtRequest auth) {
+		User user = repo.findByUsernameAndPassword(auth.getUsername(), auth.getPassword());
+		if (user == null)
+			return false;
+		else
+			return true;
 	}
 
 }

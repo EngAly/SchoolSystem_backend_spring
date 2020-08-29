@@ -15,10 +15,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@CrossOrigin(origins = "http://localhost:4200")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -41,17 +42,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// don't authenticate this particular request all guest access them
 				.antMatchers("/authenticate").permitAll()
 
+				// permit for all users
 				.antMatchers(HttpMethod.GET).permitAll()
 
-				// permit add for role with ADMIN
-				.antMatchers(HttpMethod.POST).hasRole("ADMIN")
-				
+				// permit add for role with ADMIN + USER
+				.antMatchers(HttpMethod.POST).hasAnyRole("ADMIN", "USER")
+
 				// permit delete for role with ADMIN
 				.antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-				
+
 				// permit update/modify for role with ADMIN
 				.antMatchers(HttpMethod.PUT).hasRole("ADMIN")
-				
+
 				// all other requests need to be authenticated
 				.anyRequest().authenticated().and()
 				// make sure we use stateless session; session won't be used to store user's
@@ -60,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		// Add a filter to validate the tokens with every request
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		http.cors();
 	}
 
 	@Bean

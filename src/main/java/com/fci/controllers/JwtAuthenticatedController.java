@@ -1,6 +1,7 @@
 package com.fci.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fci.config.JwtTokenUtil;
 import com.fci.models.JwtRequest;
 import com.fci.models.JwtResponse;
+import com.fci.models.Response;
 import com.fci.services.RegisterService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class JwtAuthenticatedController {
 
 	@Autowired
@@ -39,11 +41,16 @@ public class JwtAuthenticatedController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest credentials) throws Exception {
 // 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-		final UserDetails userDetails = registerService.loadUserByUsername(authenticationRequest.getUsername());
-		final String token = jwtTokenUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new JwtResponse(token));
+//		System.out.println(credentials.toString());
+		if (registerService.validateAuth(credentials)) {
+			final UserDetails userDetails = registerService.loadUserByUsername(credentials.getUsername());
+			final String token = jwtTokenUtil.generateToken(userDetails);
+			return ResponseEntity.ok(new JwtResponse(token));
+		} else
+			return ResponseEntity.status(401).body(new Response("Invalid Username Or Password"));
+
 	}
 
 	private void authenticate(String username, String password) throws Exception {

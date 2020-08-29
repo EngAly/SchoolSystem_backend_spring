@@ -10,9 +10,10 @@ import com.fci.models.User;
 @Repository
 public interface RegisterRepo extends JpaRepository<User, Long> {
 
-//it return single user only because username is unique
+   //it return single user only because username is unique
 	User findByUsername(String name);
 
 	Page<User> findByUsernameContainingIgnoreCase(String name, Pageable pageable);
 
+	User findByUsernameAndPassword(String name,String password);
 }
